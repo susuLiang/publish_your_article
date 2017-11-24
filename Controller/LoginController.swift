@@ -58,13 +58,11 @@ class LoginController: UIViewController {
         })
     }
     
-    
-    
-    
     func handleRegister() {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
-            let name = nameTextField.text
+            let firstName = firstNameTextField.text,
+            let lastName = lastNameTextField.text
             else {
             print("Form is not valid")
             return
@@ -82,7 +80,7 @@ class LoginController: UIViewController {
             
             let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
             let userReference = ref.child("users").child(uid)
-            let value = ["name": name, "email": email]
+            let value = ["firstName": firstName, "lastName": lastName, "email": email]
             userReference.updateChildValues(value, withCompletionBlock: {(err, ref) in
                 if err != nil {
                     print(err)
@@ -95,11 +93,25 @@ class LoginController: UIViewController {
         })
     }
     
-    let nameTextField: UITextField = {
-        let nameText = UITextField()
-        nameText.placeholder = "Name"
-        nameText.translatesAutoresizingMaskIntoConstraints = false
-        return nameText
+    let firstNameTextField: UITextField = {
+        let firstNameText = UITextField()
+        firstNameText.placeholder = "First name"
+        firstNameText.translatesAutoresizingMaskIntoConstraints = false
+        return firstNameText
+    }()
+    
+    let firstNameSeparator: UIView = {
+        let firstNameSeparator = UIView()
+        firstNameSeparator.backgroundColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
+        firstNameSeparator.translatesAutoresizingMaskIntoConstraints = false
+        return firstNameSeparator
+    }()
+    
+    let lastNameTextField: UITextField = {
+        let lastNameText = UITextField()
+        lastNameText.placeholder = "Last name"
+        lastNameText.translatesAutoresizingMaskIntoConstraints = false
+        return lastNameText
     }()
     
     let nameSeparator: UIView = {
@@ -152,18 +164,22 @@ class LoginController: UIViewController {
         let title = loginRegisterSegmentControl.titleForSegment(at: loginRegisterSegmentControl.selectedSegmentIndex)
         registerButton.setTitle(title, for: .normal)
         
-        inputContainerViewHeightAnchor?.constant = loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 100 : 150
+        inputContainerViewHeightAnchor?.constant = loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 100 : 200
         
-        nameTextFieldHeightAnchor?.isActive = false
-        nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 0 : 1/3)
-        nameTextFieldHeightAnchor?.isActive = true
+        firstNameTextFieldHeightAnchor?.isActive = false
+        firstNameTextFieldHeightAnchor = firstNameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 0 : 1/4)
+        firstNameTextFieldHeightAnchor?.isActive = true
+        
+        lastNameTextFieldHeightAnchor?.isActive = false
+        lastNameTextFieldHeightAnchor = lastNameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 0 : 1/4)
+        lastNameTextFieldHeightAnchor?.isActive = true
         
         emailTextFieldHeightAnchor?.isActive = false
-        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
+        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 1/2 : 1/4)
         emailTextFieldHeightAnchor?.isActive = true
         
         passwordTextFieldHeightAnchor?.isActive = false
-        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 1/2 : 1/3)
+        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: loginRegisterSegmentControl.selectedSegmentIndex == 0 ? 1/2 : 1/4)
         passwordTextFieldHeightAnchor?.isActive = true
         
     }
@@ -199,7 +215,8 @@ class LoginController: UIViewController {
     }
     
     var inputContainerViewHeightAnchor: NSLayoutConstraint?
-    var nameTextFieldHeightAnchor: NSLayoutConstraint?
+    var firstNameTextFieldHeightAnchor: NSLayoutConstraint?
+    var lastNameTextFieldHeightAnchor: NSLayoutConstraint?
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
@@ -207,30 +224,43 @@ class LoginController: UIViewController {
         inputContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        inputContainerViewHeightAnchor = inputContainerView.heightAnchor.constraint(equalToConstant: 150)
+        inputContainerViewHeightAnchor = inputContainerView.heightAnchor.constraint(equalToConstant: 200)
         inputContainerViewHeightAnchor?.isActive = true
         
-        inputContainerView.addSubview(nameTextField)
+        inputContainerView.addSubview(firstNameTextField)
+        inputContainerView.addSubview(firstNameSeparator)
+        inputContainerView.addSubview(lastNameTextField)
         inputContainerView.addSubview(nameSeparator)
         inputContainerView.addSubview(emailTextField)
         inputContainerView.addSubview(emailSeparator)
         inputContainerView.addSubview(passwordTextField)
         
-        nameTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: inputContainerView.topAnchor).isActive = true
-        nameTextField.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
-        nameTextFieldHeightAnchor = nameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/3)
-       nameTextFieldHeightAnchor?.isActive = true
+        firstNameTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true
+        firstNameTextField.topAnchor.constraint(equalTo: inputContainerView.topAnchor).isActive = true
+        firstNameTextField.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
+        firstNameTextFieldHeightAnchor = firstNameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/4)
+        firstNameTextFieldHeightAnchor?.isActive = true
         
+        firstNameSeparator.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor).isActive = true
+        firstNameSeparator.topAnchor.constraint(equalTo: firstNameTextField.topAnchor).isActive = true
+        firstNameSeparator.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
+        firstNameSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        lastNameTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true
+        lastNameTextField.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor).isActive = true
+        lastNameTextField.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
+        lastNameTextFieldHeightAnchor = lastNameTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/4)
+        lastNameTextFieldHeightAnchor?.isActive = true
+
         nameSeparator.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor).isActive = true
-        nameSeparator.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
+        nameSeparator.topAnchor.constraint(equalTo: firstNameTextField.bottomAnchor).isActive = true
         nameSeparator.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
         nameSeparator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         emailTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: lastNameTextField.bottomAnchor).isActive = true
         emailTextField.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
-        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/3)
+        emailTextFieldHeightAnchor = emailTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/4)
         emailTextFieldHeightAnchor?.isActive = true
         
         emailSeparator.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor).isActive = true
@@ -241,7 +271,7 @@ class LoginController: UIViewController {
         passwordTextField.leftAnchor.constraint(equalTo: inputContainerView.leftAnchor, constant: 12).isActive = true
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor).isActive = true
         passwordTextField.widthAnchor.constraint(equalTo: inputContainerView.widthAnchor).isActive = true
-        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/3)
+        passwordTextFieldHeightAnchor = passwordTextField.heightAnchor.constraint(equalTo: inputContainerView.heightAnchor, multiplier: 1/4)
         passwordTextFieldHeightAnchor?.isActive = true
     }
     
