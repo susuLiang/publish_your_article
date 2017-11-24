@@ -7,21 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F4C86211FC806DF008F6812 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F4C86201FC806DF008F6812 /* GoogleService-Info.plist */; };
+		1F4C86231FC81B27008F6812 /* NewMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C86221FC81B27008F6812 /* NewMessagesViewController.swift */; };
 		1FE438531FC7F7F0003473D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438521FC7F7F0003473D2 /* AppDelegate.swift */; };
-		1FE438551FC7F7F0003473D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438541FC7F7F0003473D2 /* ViewController.swift */; };
+		1FE438551FC7F7F0003473D2 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438541FC7F7F0003473D2 /* MessagesController.swift */; };
 		1FE438581FC7F7F0003473D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE438561FC7F7F0003473D2 /* Main.storyboard */; };
 		1FE4385A1FC7F7F0003473D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FE438591FC7F7F0003473D2 /* Assets.xcassets */; };
 		1FE4385D1FC7F7F0003473D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4385B1FC7F7F0003473D2 /* LaunchScreen.storyboard */; };
+		1FE438661FC7FA43003473D2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438651FC7FA43003473D2 /* LoginController.swift */; };
+		61F8EE473E3684A2185424C1 /* Pods_chatTogther.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0328D0689E1D637F772D738B /* Pods_chatTogther.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0328D0689E1D637F772D738B /* Pods_chatTogther.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_chatTogther.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		052689B7D72AB7A9D0B3A4E3 /* Pods-chatTogther.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatTogther.debug.xcconfig"; path = "Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther.debug.xcconfig"; sourceTree = "<group>"; };
+		1F4C86201FC806DF008F6812 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1F4C86221FC81B27008F6812 /* NewMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessagesViewController.swift; sourceTree = "<group>"; };
 		1FE4384F1FC7F7F0003473D2 /* chatTogther.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatTogther.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FE438521FC7F7F0003473D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1FE438541FC7F7F0003473D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1FE438541FC7F7F0003473D2 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		1FE438571FC7F7F0003473D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1FE438591FC7F7F0003473D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1FE4385C1FC7F7F0003473D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1FE4385E1FC7F7F0003473D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FE438651FC7FA43003473D2 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		34DFC0E25CE0527FFF05ED1A /* Pods-chatTogther.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatTogther.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61F8EE473E3684A2185424C1 /* Pods_chatTogther.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,8 +49,11 @@
 		1FE438461FC7F7F0003473D2 = {
 			isa = PBXGroup;
 			children = (
+				1FE438641FC7FA25003473D2 /* Controller */,
 				1FE438511FC7F7F0003473D2 /* chatTogther */,
 				1FE438501FC7F7F0003473D2 /* Products */,
+				D7B011B56697F6AE3808D390 /* Pods */,
+				4A0C797F428FAA28D19E2B03 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +69,40 @@
 			isa = PBXGroup;
 			children = (
 				1FE438521FC7F7F0003473D2 /* AppDelegate.swift */,
-				1FE438541FC7F7F0003473D2 /* ViewController.swift */,
 				1FE438561FC7F7F0003473D2 /* Main.storyboard */,
 				1FE438591FC7F7F0003473D2 /* Assets.xcassets */,
 				1FE4385B1FC7F7F0003473D2 /* LaunchScreen.storyboard */,
 				1FE4385E1FC7F7F0003473D2 /* Info.plist */,
+				1F4C86201FC806DF008F6812 /* GoogleService-Info.plist */,
 			);
 			path = chatTogther;
+			sourceTree = "<group>";
+		};
+		1FE438641FC7FA25003473D2 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1FE438651FC7FA43003473D2 /* LoginController.swift */,
+				1FE438541FC7F7F0003473D2 /* MessagesController.swift */,
+				1F4C86221FC81B27008F6812 /* NewMessagesViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		4A0C797F428FAA28D19E2B03 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0328D0689E1D637F772D738B /* Pods_chatTogther.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7B011B56697F6AE3808D390 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				052689B7D72AB7A9D0B3A4E3 /* Pods-chatTogther.debug.xcconfig */,
+				34DFC0E25CE0527FFF05ED1A /* Pods-chatTogther.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +112,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FE438611FC7F7F0003473D2 /* Build configuration list for PBXNativeTarget "chatTogther" */;
 			buildPhases = (
+				0A32B7F5DEAA4AC4526396C0 /* [CP] Check Pods Manifest.lock */,
 				1FE4384B1FC7F7F0003473D2 /* Sources */,
 				1FE4384C1FC7F7F0003473D2 /* Frameworks */,
 				1FE4384D1FC7F7F0003473D2 /* Resources */,
+				323092841C04F4B088B13C44 /* [CP] Embed Pods Frameworks */,
+				AA41EF51A2489C43CCA1A015 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -123,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F4C86211FC806DF008F6812 /* GoogleService-Info.plist in Resources */,
 				1FE4385D1FC7F7F0003473D2 /* LaunchScreen.storyboard in Resources */,
 				1FE4385A1FC7F7F0003473D2 /* Assets.xcassets in Resources */,
 				1FE438581FC7F7F0003473D2 /* Main.storyboard in Resources */,
@@ -131,13 +176,75 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0A32B7F5DEAA4AC4526396C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-chatTogther-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		323092841C04F4B088B13C44 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AA41EF51A2489C43CCA1A015 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1FE4384B1FC7F7F0003473D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FE438551FC7F7F0003473D2 /* ViewController.swift in Sources */,
+				1FE438551FC7F7F0003473D2 /* MessagesController.swift in Sources */,
+				1FE438661FC7FA43003473D2 /* LoginController.swift in Sources */,
 				1FE438531FC7F7F0003473D2 /* AppDelegate.swift in Sources */,
+				1F4C86231FC81B27008F6812 /* NewMessagesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,12 +379,13 @@
 		};
 		1FE438621FC7F7F0003473D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 052689B7D72AB7A9D0B3A4E3 /* Pods-chatTogther.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chatTogther/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther.chatTogther;
+				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -286,12 +394,13 @@
 		};
 		1FE438631FC7F7F0003473D2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34DFC0E25CE0527FFF05ED1A /* Pods-chatTogther.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chatTogther/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther.chatTogther;
+				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
