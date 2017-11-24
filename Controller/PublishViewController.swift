@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import Firebase
 
 class PublishViewController: UIViewController {
     
-    let dateTextField: UITextField = {
-        let dateText = UITextField()
-        dateText.placeholder = "Date"
-        dateText.frame = CGRect(x: 10, y: 30, width: 80, height: 20)
-        dateText.borderStyle = .line
-        return dateText
+    var ref: DatabaseReference?
+    var handle: DatabaseHandle?
+    
+    
+   
+    let dateLabel: UILabel = {
+        let date = UILabel()
+        date.frame = CGRect(x: 10, y: 30, width: 300, height: 20)
+        date.layer.borderColor = UIColor.black.cgColor
+        date.layer.borderWidth = 1
+        date.text = "\(Date())"
+        date.textColor = UIColor.black
+        return date
     }()
     
     let titleTextField: UITextField = {
@@ -33,13 +41,40 @@ class PublishViewController: UIViewController {
         contentText.borderStyle = .line
         return contentText
     }()
+    
+    lazy var saveButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 80/255, green: 101/255, blue: 161/255, alpha: 1)
+        button.setTitle("Save", for: .normal)
+        button.frame = CGRect(x: 175, y: 450, width: 100, height: 100)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(save), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func save() {
+        guard let content = contentTextField.text,
+            let title = titleTextField.text
+        else {
+            print("Form is not valid")
+            return
+        }
+        let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+        let userReference = ref.child("users").child((Auth.auth().currentUser?.uid)!).child("articles")
+        let value = ["title": title, "content": content, "date": dateLabel.text]
+        userReference.setValue(value)
+
+         self.dismiss(animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         view.addSubview(titleTextField)
         view.addSubview(contentTextField)
-        view.addSubview(dateTextField)
+        view.addSubview(dateLabel)
+        view.addSubview(saveButton)
      
     }
 
