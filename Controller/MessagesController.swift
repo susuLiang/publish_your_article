@@ -27,8 +27,8 @@ class MessagesController: UITableViewController {
     }
     
     @objc func sendNew() {
-        let newMessagesController = NewMessagesViewController()
-        present(newMessagesController, animated: true, completion: nil)
+        let publishViewController = PublishViewController()
+        present(publishViewController, animated: true, completion: nil)
     }
     
     func checkLoggedIn() {
@@ -37,8 +37,6 @@ class MessagesController: UITableViewController {
         } else {
             let uid = Auth.auth().currentUser?.uid
             Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
-                print(snapshot)
-                
                 if let dictionary = snapshot.value as? [String: Any] {
                     self.navigationItem.title = dictionary["name"] as? String
                 }
