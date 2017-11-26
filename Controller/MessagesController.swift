@@ -13,7 +13,7 @@ struct Article {
     let id: String
     let title: String
     let content: String
-    let date: String
+    let date: Date
     let author: String
 }
 

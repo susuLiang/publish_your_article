@@ -43,13 +43,18 @@ class UserArticlesController: UITableViewController {
                                 let content = theArticle["content"],
                                 let date = theArticle["date"]
                             else { return }
-                            self.articles.append(Article(id: key, title: title, content: content, date: date, author: firstname + " " + lastname))
-                            print(articles[key])
+                            
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+                            guard let trueDate = dateFormatter.date(from: date)
+                            else {
+                                return
+                            }
+                            self.articles.sort() { $0.date > $1.date }
+                            self.articles.insert(Article(id: key, title: title, content: content, date: trueDate, author: firstname + " " + lastname), at: 0)
                         }
                         self.tableView.reloadData()
-                        print(users)
-                        print("current user:\n\(currentUser)")
-                        print("article keys:\n\(self.articleKeys)")
                         
                     }
                 }
@@ -100,20 +105,9 @@ class UserArticlesController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell2 = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell2.textLabel?.text = articles[indexPath.row].title
-        cell2.detailTextLabel?.text = articles[indexPath.row].author
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: "articleCell") as? PublishArticleCell {
-//            cell.textLabel?.text = articles[indexPath.row].title
-//            cell.textLabel?.text = articles[indexPath.row].author
-//
-//            return cell
-//
-//        } else {
-//
-//            return PublishArticleCell()
-//
-//        }
-        return cell2
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        cell.textLabel?.text = articles[indexPath.row].title
+        cell.detailTextLabel?.text = articles[indexPath.row].author + "   " + "\(articles[indexPath.row].date)"
+        return cell
     }
 }
