@@ -25,6 +25,7 @@ class MessagesController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableCell()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
@@ -71,6 +72,18 @@ class MessagesController: UITableViewController {
  
     }
     
+    func setupTableCell() {
+        let nib = UINib(
+            nibName: "PublishArticleCell",
+            bundle: nil
+        )
+        
+        tableView.register(
+            nib,
+            forCellReuseIdentifier: "cell"
+        )
+    }
+    
     override func didMove(toParentViewController parent: UIViewController?) {
         checkLoggedIn()
     }
@@ -114,16 +127,26 @@ class MessagesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return publishArticleKeys.count
+        return publishArticles.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = publishArticles[indexPath.row].title
-        cell.detailTextLabel?.text = publishArticles[indexPath.row].author + "   " + "\(publishArticles[indexPath.row].date)"
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+            ) as! PublishArticleCell
+    
+        cell.titleLabel.text = publishArticles[indexPath.row].title
+        cell.contentLabel.text = publishArticles[indexPath.row].content
+        cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
+        cell.authorButton.setTitle("Author: \(publishArticles[indexPath.row].author)", for: .normal)
+        
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
     
 }
 
