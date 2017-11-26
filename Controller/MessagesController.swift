@@ -9,7 +9,17 @@
 import UIKit
 import Firebase
 
+struct Article {
+    let id: String
+    let title: String
+    let content: String
+    let date: String
+    let author: String
+}
+
 class MessagesController: UITableViewController {
+
+    var articles: [Article] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +28,20 @@ class MessagesController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
         
         checkLoggedIn()
-        
+
+        Database.database().reference().observe(.value) { (snapshot) in
+            self.articles = []
+            print(snapshot.value)
+            if let objects = snapshot.children.allObjects as? [DataSnapshot] {
+                for object in objects {
+                    if let users = object.value as? [String: AnyObject] {
+                        let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+                        
+                        print(users)
+                    }
+                }
+            }
+        }
  
     }
     
@@ -57,11 +80,13 @@ class MessagesController: UITableViewController {
         let loginController = LoginController()
         present(loginController, animated: true, completion: nil)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
-
+    
 }
 

@@ -16,6 +16,8 @@
 		1FE4385D1FC7F7F0003473D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4385B1FC7F7F0003473D2 /* LaunchScreen.storyboard */; };
 		1FE438661FC7FA43003473D2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438651FC7FA43003473D2 /* LoginController.swift */; };
 		61F8EE473E3684A2185424C1 /* Pods_chatTogther.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0328D0689E1D637F772D738B /* Pods_chatTogther.framework */; };
+		7FABFA191FCAAA3A0010A10F /* PublishArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FABFA181FCAAA3A0010A10F /* PublishArticleCell.swift */; };
+		7FABFA1D1FCAB2420010A10F /* UserArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		1FE4385E1FC7F7F0003473D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FE438651FC7FA43003473D2 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		34DFC0E25CE0527FFF05ED1A /* Pods-chatTogther.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatTogther.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther.release.xcconfig"; sourceTree = "<group>"; };
+		7FABFA181FCAAA3A0010A10F /* PublishArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishArticleCell.swift; sourceTree = "<group>"; };
+		7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArticlesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +85,11 @@
 		1FE438641FC7FA25003473D2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7FABFA171FCAAA0C0010A10F /* cell */,
 				1FE438651FC7FA43003473D2 /* LoginController.swift */,
 				1FE438541FC7F7F0003473D2 /* MessagesController.swift */,
 				1F4C86221FC81B27008F6812 /* PublishViewController.swift */,
+				7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -94,6 +100,14 @@
 				0328D0689E1D637F772D738B /* Pods_chatTogther.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7FABFA171FCAAA0C0010A10F /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				7FABFA181FCAAA3A0010A10F /* PublishArticleCell.swift */,
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		D7B011B56697F6AE3808D390 /* Pods */ = {
@@ -243,6 +257,8 @@
 			files = (
 				1FE438551FC7F7F0003473D2 /* MessagesController.swift in Sources */,
 				1FE438661FC7FA43003473D2 /* LoginController.swift in Sources */,
+				7FABFA191FCAAA3A0010A10F /* PublishArticleCell.swift in Sources */,
+				7FABFA1D1FCAB2420010A10F /* UserArticlesController.swift in Sources */,
 				1FE438531FC7F7F0003473D2 /* AppDelegate.swift in Sources */,
 				1F4C86231FC81B27008F6812 /* PublishViewController.swift in Sources */,
 			);
@@ -384,6 +400,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chatTogther/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -399,6 +416,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chatTogther/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Appworks.chatTogther;
 				PRODUCT_NAME = "$(TARGET_NAME)";
