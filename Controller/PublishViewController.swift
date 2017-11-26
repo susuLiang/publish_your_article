@@ -60,12 +60,13 @@ class PublishViewController: UIViewController {
             print("Form is not valid")
             return
         }
+        guard let userid = Auth.auth().currentUser?.uid else { return }
         let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
-        let userReference = ref.child("users").child((Auth.auth().currentUser?.uid)!).child("articles").childByAutoId()
+        let userReference = ref.child("users").child(userid).child("articles").childByAutoId()
         let value = ["title": title, "content": content, "date": dateLabel.text]
         userReference.setValue(value)
-
-         self.dismiss(animated: true, completion: nil)
+        
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func viewDidLoad() {
@@ -77,13 +78,5 @@ class PublishViewController: UIViewController {
         view.addSubview(saveButton)
      
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-
    
 }
