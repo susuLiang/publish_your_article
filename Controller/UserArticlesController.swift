@@ -26,15 +26,13 @@ class UserArticlesController: UITableViewController {
         Database.database().reference().observe(.value) { (snapshot) in
             self.articles = []
             guard let userid = Auth.auth().currentUser?.uid else { return }
-//            let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
-//            let userReference = ref.child("users").child(userid).child("articles")
             
             if let objects = snapshot.children.allObjects as? [DataSnapshot] {
                 for object in objects {
                     if let users = object.value as? [String: AnyObject],
                         let currentUser = users[userid],
-//                        let firstname = currentUser["firstname"] as? String,
-//                        let lastname = currentUser["lastname"] as? String,
+                        let firstname = currentUser["firstName"] as? String,
+                        let lastname = currentUser["lastName"] as? String,
                         let articles = currentUser["articles"] as? NSDictionary {
                         guard let keys = articles.allKeys as? [String] else { return }
                         self.articleKeys = keys
@@ -45,7 +43,7 @@ class UserArticlesController: UITableViewController {
                                 let content = theArticle["content"],
                                 let date = theArticle["date"]
                             else { return }
-                            self.articles.append(Article(id: key, title: title, content: content, date: date, author: "firstname + lastname"))
+                            self.articles.append(Article(id: key, title: title, content: content, date: date, author: firstname + " " + lastname))
                             print(articles[key])
                         }
                         self.tableView.reloadData()
@@ -102,16 +100,20 @@ class UserArticlesController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "articleCell") as? PublishArticleCell {
-            
-            cell.textLabel?.text = articles[indexPath.row].title
-            
-            return cell
-            
-        } else {
-            
-            return PublishArticleCell()
-            
-        }
+        let cell2 = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+        cell2.textLabel?.text = articles[indexPath.row].title
+        cell2.detailTextLabel?.text = articles[indexPath.row].author
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: "articleCell") as? PublishArticleCell {
+//            cell.textLabel?.text = articles[indexPath.row].title
+//            cell.textLabel?.text = articles[indexPath.row].author
+//
+//            return cell
+//
+//        } else {
+//
+//            return PublishArticleCell()
+//
+//        }
+        return cell2
     }
 }
