@@ -61,7 +61,7 @@ class PublishViewController: UIViewController {
             return
         }
         let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
-        let userReference = ref.child("users").child((Auth.auth().currentUser?.uid)!).child("articles")
+        let userReference = ref.child("users").child((Auth.auth().currentUser?.uid)!).child("articles").childByAutoId()
         let value = ["title": title, "content": content, "date": dateLabel.text]
         userReference.setValue(value)
 
