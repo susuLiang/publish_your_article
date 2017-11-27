@@ -104,7 +104,7 @@ class MessagesController: UITableViewController {
                 if let dictionary = snapshot.value as? [String: Any],
                     let firstName = dictionary["firstName"] as? String,
                     let lastName = dictionary["lastName"] as? String {
-                    self.navigationItem.title = firstName + " " + lastName
+                    self.navigationItem.title = "All Articles"
                 }
             })
         }
@@ -144,6 +144,7 @@ class MessagesController: UITableViewController {
             for: indexPath
             ) as! PublishArticleCell
     
+        cell.contentLabel.sizeToFit()
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
@@ -153,6 +154,13 @@ class MessagesController: UITableViewController {
         cell.authorButton.setTitle(publishArticles[indexPath.row].author, for: .normal)
         cell.authorButton.tag = indexPath.row
         cell.authorButton.addTarget(self, action: #selector(authorAtcs), for: .touchUpInside)
+        let image = UIImage(named: "icon-heart")?.withRenderingMode(.alwaysTemplate)
+        cell.likeButton.setImage(image, for: .normal)
+        if exist(articleId: publishArticles[indexPath.row].id) {
+            cell.likeButton.tintColor = UIColor.red
+        } else {
+            cell.likeButton.tintColor = UIColor.black
+        }
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(like), for: .touchUpInside)
         
