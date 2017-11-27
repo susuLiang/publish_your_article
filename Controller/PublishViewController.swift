@@ -13,8 +13,6 @@ class PublishViewController: UIViewController {
     
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
-    
-    
    
     let dateLabel: UILabel = {
         let date = UILabel()
@@ -76,14 +74,7 @@ class PublishViewController: UIViewController {
         view.addSubview(contentTextField)
         view.addSubview(dateLabel)
         view.addSubview(saveButton)
-//
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Community", style: .plain, target: self, action: #selector(goToCommunity))
      
     }
-//    
-//    @objc func goToCommunity() {
-//        
-//        self.dismiss(animated: true, completion: nil)
-//    }
     
 }

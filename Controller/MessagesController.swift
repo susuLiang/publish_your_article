@@ -30,7 +30,6 @@ class MessagesController: UITableViewController {
         setupTableCell()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(publishAnArticle))
         
         checkLoggedIn()
@@ -91,11 +90,6 @@ class MessagesController: UITableViewController {
         checkLoggedIn()
     }
     
-//    @objc func sendNew() {
-//        let publishViewController = PublishViewController()
-//        present(publishViewController, animated: true, completion: nil)
-//    }
-    
     func checkLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
@@ -130,7 +124,6 @@ class MessagesController: UITableViewController {
     }
     
     @objc func publishAnArticle() {
-
         let publishViewController = PublishViewController()
         navigationController?.pushViewController(publishViewController, animated: true)
     }
@@ -151,16 +144,15 @@ class MessagesController: UITableViewController {
             for: indexPath
             ) as! PublishArticleCell
     
-//        cell.contentLabel.sizeToFit()
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
 
         cell.authorButton.setTitle("Author: \(publishArticles[indexPath.row].author)", for: .normal)
-        
         cell.authorButton.setTitle(publishArticles[indexPath.row].author, for: .normal)
         cell.authorButton.tag = indexPath.row
         cell.authorButton.addTarget(self, action: #selector(authorAtcs), for: .touchUpInside)
+        
         let image = UIImage(named: "icon-heart")?.withRenderingMode(.alwaysTemplate)
         cell.likeButton.setImage(image, for: .normal)
         if exist(articleId: publishArticles[indexPath.row].id) {
@@ -179,51 +171,31 @@ class MessagesController: UITableViewController {
     }
     
     @objc func like(_ sender: UIButton) {
-        
-//        var likeIsTrue = true
-        
         if exist(articleId: publishArticles[sender.tag].id) {
-            
             sender.tintColor = UIColor.black
             guard let userid = Auth.auth().currentUser?.uid else { return }
             let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
             let userReference = ref.child("users").child(userid).child("postLikes").child(publishArticles[sender.tag].id)
-            
             userReference.removeValue()
-
-            
-        
         } else {
-
             sender.tintColor = UIColor.red
             guard let userid = Auth.auth().currentUser?.uid else { return }
             let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
             let userReference = ref.child("users").child(userid).child("postLikes").child(publishArticles[sender.tag].id)
-            
             userReference.setValue(true)
         }
         
     }
     
     func exist(articleId: String) -> Bool {
-        
-//        var isExist = false
-        
         guard let uid = Auth.auth().currentUser?.uid else {return false}
-//        Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
-//            if let dictionary = snapshot.value as? [String: Any],
-//                let postLikes = dictionary["postLikes"] as? [String: Bool] {
-//                let postIds = Array(postLikes.keys)
         if let userlike = userLikes[uid] {
-                for postId in userlike  {
-                    if articleId == postId {
-//                        isExist = true
-//                        print(isExist)
-                        return true
-                    }
+            for postId in userlike  {
+                if articleId == postId {
+                    return true
                 }
-//            return false
             }
+        }
         return false
     }
     
