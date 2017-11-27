@@ -140,6 +140,7 @@ class MessagesController: UITableViewController {
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
         cell.authorButton.setTitle("Author: \(publishArticles[indexPath.row].author)", for: .normal)
+        cell.likeButton.addTarget(self, action: #selector(like), for: .touchUpInside)
         
         return cell
     }
@@ -147,6 +148,18 @@ class MessagesController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    @objc func like() {
+        
+        var likeIsTrue = true
+        guard let userid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+        let userReference = ref.child("users").child(userid).child("postLikes")
+        let value = ["likeArticle": likeIsTrue]
+        userReference.setValue(value)
+        
+    }
+
     
 }
 

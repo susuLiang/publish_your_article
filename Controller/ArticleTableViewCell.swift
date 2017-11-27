@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ArticleTableViewCell: UITableViewCell {
     
@@ -34,6 +35,13 @@ class ArticleTableViewCell: UITableViewCell {
     }
     
     @objc func like() {
+        
+        var likeIsTrue = true
+        guard let userid = Auth.auth().currentUser?.uid else { return }
+        let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+        let userReference = ref.child("users").child(userid).child("likes")
+        let value = ["likeIsTrue": likeIsTrue]
+        userReference.setValue(value)
         
     }
     
