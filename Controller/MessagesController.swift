@@ -13,8 +13,9 @@ struct Article {
     let id: String
     let title: String
     let content: String
-    let date: Date
+    let date: String
     let author: String
+    let uid: String
 }
 
 class MessagesController: UITableViewController {
@@ -53,14 +54,10 @@ class MessagesController: UITableViewController {
                                         let title = theArticle["title"],
                                         let content = theArticle["content"],
                                         let date = theArticle["date"]
-                                        else { return }
+                                    else { return }
                                     
-                                    let dateFormatter = DateFormatter()
-                                    dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                                    guard let trueDate = dateFormatter.date(from: date) else { return }
+                                    self.publishArticles.insert(Article(id: key, title: title, content: content, date: date, author: firstname + " " + lastname, uid: uid), at: 0)
                                     self.publishArticles.sort() { $0.date > $1.date }
-                                    self.publishArticles.insert(Article(id: key, title: title, content: content, date: trueDate, author: firstname + " " + lastname), at: 0)
                                 }
                             }
                         }
@@ -120,6 +117,12 @@ class MessagesController: UITableViewController {
         present(loginController, animated: true, completion: nil)
     }
 
+    @objc func authorAtcs(_ sender: UIButton) {
+        let authorArticleController = UserArticlesController()
+        authorArticleController.authorUid = publishArticles[sender.tag].uid   
+        navigationController?.pushViewController(authorArticleController, animated: true)
+    }
+
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -139,9 +142,14 @@ class MessagesController: UITableViewController {
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
+
         cell.authorButton.setTitle("Author: \(publishArticles[indexPath.row].author)", for: .normal)
         cell.likeButton.addTarget(self, action: #selector(like), for: .touchUpInside)
         
+        cell.authorButton.setTitle(publishArticles[indexPath.row].author, for: .normal)
+        cell.authorButton.tag = indexPath.row
+        cell.authorButton.addTarget(self, action: #selector(authorAtcs), for: .touchUpInside)
+
         return cell
     }
     
