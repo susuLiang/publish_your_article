@@ -10,27 +10,24 @@ import UIKit
 import Firebase
 
 class UserArticlesController: UITableViewController {
-
+    
+    var authorUid: String = " "
     var articles: [Article] = []
     var articleKeys: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
         
-        checkLoggedIn()
-        
+        setupTableCell()
         tableView.register(PublishArticleCell.self, forCellReuseIdentifier: "articleCell")
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(done))
         Database.database().reference().observe(.value) { (snapshot) in
             self.articles = []
-            guard let userid = Auth.auth().currentUser?.uid else { return }
             
             if let objects = snapshot.children.allObjects as? [DataSnapshot] {
                 for object in objects {
                     if let users = object.value as? [String: AnyObject],
-                        let currentUser = users[userid],
+                        let currentUser = users[self.authorUid],
                         let firstname = currentUser["firstName"] as? String,
                         let lastname = currentUser["lastName"] as? String,
                         let articles = currentUser["articles"] as? NSDictionary {
@@ -42,17 +39,10 @@ class UserArticlesController: UITableViewController {
                                 let title = theArticle["title"],
                                 let content = theArticle["content"],
                                 let date = theArticle["date"]
-                            else { return }
+                                else { return }
                             
-                            let dateFormatter = DateFormatter()
-                            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-                            guard let trueDate = dateFormatter.date(from: date)
-                            else {
-                                return
-                            }
+                            self.articles.insert(Article(id: key, title: title, content: content, date: date, author: firstname + " " + lastname, uid: self.authorUid), at: 0)
                             self.articles.sort() { $0.date > $1.date }
-                            self.articles.insert(Article(id: key, title: title, content: content, date: trueDate, author: firstname + " " + lastname), at: 0)
                         }
                         self.tableView.reloadData()
                         
@@ -61,53 +51,47 @@ class UserArticlesController: UITableViewController {
             }
         }
     }
-
-    @objc func sendNew() {
-        let publishViewController = PublishViewController()
-        present(publishViewController, animated: true, completion: nil)
-    }
     
-    func checkLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
-            perform(#selector(handleLogout), with: nil, afterDelay: 0)
-        } else {
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
-                if let dictionary = snapshot.value as? [String: Any],
-                    let firstName = dictionary["firstName"] as? String,
-                    let lastName = dictionary["lastName"] as? String {
-                    self.navigationItem.title = firstName + " " + lastName
-                }
-            })
-        }
-    }
-    
-    @objc func handleLogout() {
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let logoutError {
-            print(logoutError)
-        }
-        
-        let loginController = LoginController()
-        present(loginController, animated: true, completion: nil)
+    @objc func done() {
+        navigationController?.popViewController(animated: true)
     }
 
+    func setupTableCell() {
+        let nib = UINib(
+            nibName: "PublishArticleCell",
+            bundle: nil
+        )
+        
+        tableView.register(
+            nib,
+            forCellReuseIdentifier: "cell"
+        )
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articleKeys.count
+        return articles.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(
+            withIdentifier: "cell",
+            for: indexPath
+            ) as! PublishArticleCell
+        
+        cell.titleLabel.text = articles[indexPath.row].title
+        cell.contentLabel.text = articles[indexPath.row].content
+        cell.authorButton.setTitle(" ", for: .normal)
+        cell.dateLabel.text = "\(articles[indexPath.row].date)"
+        return cell
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = articles[indexPath.row].title
-        cell.detailTextLabel?.text = articles[indexPath.row].author + "   " + "\(articles[indexPath.row].date)"
-        return cell
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
 }
