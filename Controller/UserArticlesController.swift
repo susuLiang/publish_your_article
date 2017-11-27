@@ -18,13 +18,11 @@ class UserArticlesController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let uid = Auth.auth().currentUser?.uid
         Database.database().reference().child("users").child(authorUid).observe(.value, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: Any],
                 let firstName = dictionary["firstName"] as? String,
                 let lastName = dictionary["lastName"] as? String {
                 self.navigationItem.title = firstName + " " + lastName
-//                self.navigationItem.title = "All Articles"
             }
         })
         
@@ -94,8 +92,6 @@ class UserArticlesController: UITableViewController {
             for: indexPath
             ) as! PublishArticleCell
         
-        cell.contentLabel.sizeToFit()
-
         cell.titleLabel.text = articles[indexPath.row].title
         cell.contentLabel.text = articles[indexPath.row].content
         cell.authorButton.setTitle(" ", for: .normal)
