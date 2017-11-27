@@ -30,7 +30,8 @@ class MessagesController: UITableViewController {
         setupTableCell()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(publishAnArticle))
         
         checkLoggedIn()
 
@@ -90,10 +91,10 @@ class MessagesController: UITableViewController {
         checkLoggedIn()
     }
     
-    @objc func sendNew() {
-        let publishViewController = PublishViewController()
-        present(publishViewController, animated: true, completion: nil)
-    }
+//    @objc func sendNew() {
+//        let publishViewController = PublishViewController()
+//        present(publishViewController, animated: true, completion: nil)
+//    }
     
     func checkLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
@@ -104,7 +105,7 @@ class MessagesController: UITableViewController {
                 if let dictionary = snapshot.value as? [String: Any],
                     let firstName = dictionary["firstName"] as? String,
                     let lastName = dictionary["lastName"] as? String {
-                    self.navigationItem.title = firstName + " " + lastName
+                    self.navigationItem.title = "All Articles"
                 }
             })
         }
@@ -127,6 +128,12 @@ class MessagesController: UITableViewController {
         authorArticleController.authorUid = publishArticles[sender.tag].uid   
         navigationController?.pushViewController(authorArticleController, animated: true)
     }
+    
+    @objc func publishAnArticle() {
+
+        let publishViewController = PublishViewController()
+        navigationController?.pushViewController(publishViewController, animated: true)
+    }
 
     // MARK: - Table view data source
     
@@ -144,6 +151,7 @@ class MessagesController: UITableViewController {
             for: indexPath
             ) as! PublishArticleCell
     
+//        cell.contentLabel.sizeToFit()
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
@@ -153,6 +161,13 @@ class MessagesController: UITableViewController {
         cell.authorButton.setTitle(publishArticles[indexPath.row].author, for: .normal)
         cell.authorButton.tag = indexPath.row
         cell.authorButton.addTarget(self, action: #selector(authorAtcs), for: .touchUpInside)
+        let image = UIImage(named: "icon-heart")?.withRenderingMode(.alwaysTemplate)
+        cell.likeButton.setImage(image, for: .normal)
+        if exist(articleId: publishArticles[indexPath.row].id) {
+            cell.likeButton.tintColor = UIColor.red
+        } else {
+            cell.likeButton.tintColor = UIColor.black
+        }
         cell.likeButton.tag = indexPath.row
         cell.likeButton.addTarget(self, action: #selector(like), for: .touchUpInside)
         
@@ -211,7 +226,6 @@ class MessagesController: UITableViewController {
             }
         return false
     }
-
     
 }
 

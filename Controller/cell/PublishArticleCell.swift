@@ -20,6 +20,7 @@ class PublishArticleCell: UITableViewCell {
         super.awakeFromNib()
         
         // Initialization code
+//        likeButton = UIButton(type: .custom)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

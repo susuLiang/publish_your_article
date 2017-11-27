@@ -18,7 +18,7 @@ class PublishViewController: UIViewController {
    
     let dateLabel: UILabel = {
         let date = UILabel()
-        date.frame = CGRect(x: 10, y: 30, width: 300, height: 20)
+        date.frame = CGRect(x: 10, y: 80, width: 300, height: 20)
         date.layer.borderColor = UIColor.black.cgColor
         date.layer.borderWidth = 1
         date.text = "\(Date())"
@@ -29,7 +29,7 @@ class PublishViewController: UIViewController {
     let titleTextField: UITextField = {
         let titleText = UITextField()
         titleText.placeholder = "Title"
-        titleText.frame = CGRect(x: 10, y: 60, width: 100, height: 40)
+        titleText.frame = CGRect(x: 10, y: 110, width: 100, height: 40)
         titleText.borderStyle = .line
         return titleText
     }()
@@ -37,7 +37,7 @@ class PublishViewController: UIViewController {
     let contentTextField: UITextField = {
         let contentText = UITextField()
         contentText.placeholder = "Content"
-        contentText.frame = CGRect(x: 10, y: 110, width: 200, height: 300)
+        contentText.frame = CGRect(x: 10, y: 160, width: 200, height: 300)
         contentText.borderStyle = .line
         return contentText
     }()
@@ -46,7 +46,7 @@ class PublishViewController: UIViewController {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 80/255, green: 101/255, blue: 161/255, alpha: 1)
         button.setTitle("Save", for: .normal)
-        button.frame = CGRect(x: 175, y: 450, width: 100, height: 100)
+        button.frame = CGRect(x: 175, y: 500, width: 100, height: 100)
         button.setTitleColor(UIColor.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.addTarget(self, action: #selector(save), for: .touchUpInside)
@@ -66,7 +66,7 @@ class PublishViewController: UIViewController {
         let value = ["title": title, "content": content, "date": dateLabel.text]
         userReference.setValue(value)
         
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popToRootViewController(animated: true)
     }
 
     override func viewDidLoad() {
@@ -76,7 +76,14 @@ class PublishViewController: UIViewController {
         view.addSubview(contentTextField)
         view.addSubview(dateLabel)
         view.addSubview(saveButton)
+//
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Community", style: .plain, target: self, action: #selector(goToCommunity))
      
     }
-   
+//    
+//    @objc func goToCommunity() {
+//        
+//        self.dismiss(animated: true, completion: nil)
+//    }
+    
 }
