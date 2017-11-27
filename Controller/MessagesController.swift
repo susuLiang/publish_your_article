@@ -23,6 +23,7 @@ class MessagesController: UITableViewController {
     var publishArticles: [Article] = []
     var publishArticleKeys: [String] = []
     var userIDs: [String] = []
+    var userLikes: [String: [String]] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,10 @@ class MessagesController: UITableViewController {
                                 let firstname = userInfo["firstName"] as? String,
                                 let lastname = userInfo["lastName"] as? String,
                                 let articles = userInfo["articles"] as? NSDictionary {
+                                    if let likes = userInfo["postLikes"] as? [String: Bool] {
+                                        let likeId = Array(likes.keys)
+                                        self.userLikes.updateValue(likeId, forKey: uid)
+                                    }
                                 guard let keys = articles.allKeys as? [String] else { return }
                                 self.publishArticleKeys = keys
                                 for key in keys {
@@ -142,15 +147,71 @@ class MessagesController: UITableViewController {
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
+
+        cell.authorButton.setTitle("Author: \(publishArticles[indexPath.row].author)", for: .normal)
+        
         cell.authorButton.setTitle(publishArticles[indexPath.row].author, for: .normal)
         cell.authorButton.tag = indexPath.row
         cell.authorButton.addTarget(self, action: #selector(authorAtcs), for: .touchUpInside)
+        cell.likeButton.tag = indexPath.row
+        cell.likeButton.addTarget(self, action: #selector(like), for: .touchUpInside)
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
     }
+    
+    @objc func like(_ sender: UIButton) {
+        
+//        var likeIsTrue = true
+        
+        if exist(articleId: publishArticles[sender.tag].id) {
+            
+            sender.tintColor = UIColor.black
+            guard let userid = Auth.auth().currentUser?.uid else { return }
+            let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+            let userReference = ref.child("users").child(userid).child("postLikes").child(publishArticles[sender.tag].id)
+            
+            userReference.removeValue()
+
+            
+        
+        } else {
+
+            sender.tintColor = UIColor.red
+            guard let userid = Auth.auth().currentUser?.uid else { return }
+            let ref = Database.database().reference(fromURL: "https://chattogther.firebaseio.com/")
+            let userReference = ref.child("users").child(userid).child("postLikes").child(publishArticles[sender.tag].id)
+            
+            userReference.setValue(true)
+        }
+        
+    }
+    
+    func exist(articleId: String) -> Bool {
+        
+//        var isExist = false
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return false}
+//        Database.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
+//            if let dictionary = snapshot.value as? [String: Any],
+//                let postLikes = dictionary["postLikes"] as? [String: Bool] {
+//                let postIds = Array(postLikes.keys)
+        if let userlike = userLikes[uid] {
+                for postId in userlike  {
+                    if articleId == postId {
+//                        isExist = true
+//                        print(isExist)
+                        return true
+                    }
+                }
+//            return false
+            }
+        return false
+    }
+
     
 }
 

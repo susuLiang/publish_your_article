@@ -17,6 +17,7 @@
 		1FE4385D1FC7F7F0003473D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4385B1FC7F7F0003473D2 /* LaunchScreen.storyboard */; };
 		1FE438661FC7FA43003473D2 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE438651FC7FA43003473D2 /* LoginController.swift */; };
 		61F8EE473E3684A2185424C1 /* Pods_chatTogther.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0328D0689E1D637F772D738B /* Pods_chatTogther.framework */; };
+		6B5B448C1FCB2CC800F35BED /* ArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5B448B1FCB2CC800F35BED /* ArticleTableViewCell.swift */; };
 		7FABFA191FCAAA3A0010A10F /* PublishArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FABFA181FCAAA3A0010A10F /* PublishArticleCell.swift */; };
 		7FABFA1D1FCAB2420010A10F /* UserArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */; };
 /* End PBXBuildFile section */
@@ -36,6 +37,7 @@
 		1FE4385E1FC7F7F0003473D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FE438651FC7FA43003473D2 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		34DFC0E25CE0527FFF05ED1A /* Pods-chatTogther.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-chatTogther.release.xcconfig"; path = "Pods/Target Support Files/Pods-chatTogther/Pods-chatTogther.release.xcconfig"; sourceTree = "<group>"; };
+		6B5B448B1FCB2CC800F35BED /* ArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleTableViewCell.swift; sourceTree = "<group>"; };
 		7FABFA181FCAAA3A0010A10F /* PublishArticleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishArticleCell.swift; sourceTree = "<group>"; };
 		7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserArticlesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,6 +95,7 @@
 				1F99E33F1FCB417400FD05A8 /* PublishArticleCell.xib */,
 				1F4C86221FC81B27008F6812 /* PublishViewController.swift */,
 				7FABFA1C1FCAB2420010A10F /* UserArticlesController.swift */,
+				6B5B448B1FCB2CC800F35BED /* ArticleTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				7FABFA191FCAAA3A0010A10F /* PublishArticleCell.swift in Sources */,
 				7FABFA1D1FCAB2420010A10F /* UserArticlesController.swift in Sources */,
 				1FE438531FC7F7F0003473D2 /* AppDelegate.swift in Sources */,
+				6B5B448C1FCB2CC800F35BED /* ArticleTableViewCell.swift in Sources */,
 				1F4C86231FC81B27008F6812 /* PublishViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
