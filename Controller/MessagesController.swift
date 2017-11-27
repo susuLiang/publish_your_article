@@ -30,7 +30,8 @@ class MessagesController: UITableViewController {
         setupTableCell()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(sendNew))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(publishAnArticle))
         
         checkLoggedIn()
 
@@ -90,10 +91,10 @@ class MessagesController: UITableViewController {
         checkLoggedIn()
     }
     
-    @objc func sendNew() {
-        let publishViewController = PublishViewController()
-        present(publishViewController, animated: true, completion: nil)
-    }
+//    @objc func sendNew() {
+//        let publishViewController = PublishViewController()
+//        present(publishViewController, animated: true, completion: nil)
+//    }
     
     func checkLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
@@ -127,6 +128,12 @@ class MessagesController: UITableViewController {
         authorArticleController.authorUid = publishArticles[sender.tag].uid   
         navigationController?.pushViewController(authorArticleController, animated: true)
     }
+    
+    @objc func publishAnArticle() {
+
+        let publishViewController = PublishViewController()
+        navigationController?.pushViewController(publishViewController, animated: true)
+    }
 
     // MARK: - Table view data source
     
@@ -144,7 +151,7 @@ class MessagesController: UITableViewController {
             for: indexPath
             ) as! PublishArticleCell
     
-        cell.contentLabel.sizeToFit()
+//        cell.contentLabel.sizeToFit()
         cell.titleLabel.text = publishArticles[indexPath.row].title
         cell.contentLabel.text = publishArticles[indexPath.row].content
         cell.dateLabel.text = "\(publishArticles[indexPath.row].date)"
@@ -219,7 +226,6 @@ class MessagesController: UITableViewController {
             }
         return false
     }
-
     
 }
 
