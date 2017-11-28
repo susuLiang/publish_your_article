@@ -88,8 +88,6 @@ class LoginController: UIViewController {
                 }
                 self.dismiss(animated: true, completion: nil)
             })
-            
-            
         })
     }
     
