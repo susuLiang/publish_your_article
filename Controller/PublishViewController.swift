@@ -13,12 +13,14 @@ class PublishViewController: UIViewController {
     
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
+    var author = ""
    
     let dateLabel: UILabel = {
         let date = UILabel()
         date.frame = CGRect(x: 10, y: 80, width: 300, height: 20)
         date.layer.borderColor = UIColor.black.cgColor
         date.layer.borderWidth = 1
+        
         date.text = "\(Date())"
         date.textColor = UIColor.black
         return date
@@ -74,6 +76,8 @@ class PublishViewController: UIViewController {
         view.addSubview(contentTextField)
         view.addSubview(dateLabel)
         view.addSubview(saveButton)
+        
+        navigationItem.title = author
      
     }
     

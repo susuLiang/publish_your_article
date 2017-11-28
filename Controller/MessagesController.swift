@@ -24,6 +24,7 @@ class MessagesController: UITableViewController {
     var publishArticleKeys: [String] = []
     var userIDs: [String] = []
     var userLikes: [String: [String]] = [:]
+    var author: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,6 +100,7 @@ class MessagesController: UITableViewController {
                 if let dictionary = snapshot.value as? [String: Any],
                     let firstName = dictionary["firstName"] as? String,
                     let lastName = dictionary["lastName"] as? String {
+                    self.author = "\(firstName) \(lastName)"
                     self.navigationItem.title = "All Articles"
                 }
             })
@@ -125,6 +127,7 @@ class MessagesController: UITableViewController {
     
     @objc func publishAnArticle() {
         let publishViewController = PublishViewController()
+        publishViewController.author = self.author
         navigationController?.pushViewController(publishViewController, animated: true)
     }
 
@@ -166,10 +169,6 @@ class MessagesController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
-    
     @objc func like(_ sender: UIButton) {
         if exist(articleId: publishArticles[sender.tag].id) {
             sender.tintColor = UIColor.black
@@ -188,6 +187,7 @@ class MessagesController: UITableViewController {
     }
     
     func exist(articleId: String) -> Bool {
+        
         guard let uid = Auth.auth().currentUser?.uid else {return false}
         if let userlike = userLikes[uid] {
             for postId in userlike  {
